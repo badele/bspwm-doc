@@ -58,6 +58,8 @@ GenerateDoc () {
     echo "## bspwm-doc" > $README
     echo "" >> $README
     echo "The documentation generator for bspwm project" >> $README
+    echo "" >> $README
+    echo "[Animated version](screenshot/animated.gif)" >> $README
 
     find "$EXECDIR/doc/" -name "*.md" -printf "%T@ %p\n" | sort -n | cut -d'/' -f3 | while read file
     do
@@ -84,7 +86,7 @@ CloseAllWindows() {
 }
 
 rm -rf "$EXECDIR/doc"
-rm -rf "$EXECDIR/screenshot"
+#rm -rf "$EXECDIR/screenshot"
 
 # Kill all bars (empty desktop)
 pkill polybar
