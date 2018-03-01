@@ -2,7 +2,7 @@
 
 The documentation generator for bspwm project
 
-[Animated version](screenshot/animated.gif)
+![Animated version](screenshot/animated.gif)
 
 ### Window-Node #1.md
 
