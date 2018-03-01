@@ -86,7 +86,7 @@ CloseAllWindows() {
 }
 
 rm -rf "$EXECDIR/doc"
-#rm -rf "$EXECDIR/screenshot"
+rm -rf "$EXECDIR/screenshot"
 
 # Kill all bars (empty desktop)
 pkill polybar
