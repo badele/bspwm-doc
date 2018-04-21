@@ -3,11 +3,20 @@
 # Configuration
 SCALE="70"
 GIFDELAY="240"
+TERMINAL=termite
 
 EXECDIR=$(dirname $0)
 
 Slugify() {
 	echo "$1" | iconv -t ascii//TRANSLIT | sed -r s/[~\^]+//g | sed -r s/[^a-zA-Z0-9]+/_/g | sed -r s/^-+\|-+$//g | tr A-Z a-z
+}
+
+ExecuteCMD() {
+	if [ "$1" = "urxvt" ]; then
+		urxvt -e sh -c "$2"
+	else
+		termite -e "sh -c '$2'"
+	fi
 }
 
 # Take Screenshot
@@ -23,11 +32,11 @@ TakeScreenshot() {
 	sleep 1
 	if [ ! -e "$EXECDIR/screenshot/${TITLE}.png" ]; then
 		# Screenshot
-		if [ $MAXSCALE -eq 100 ]; then
+		if [ $SCALE -eq 100 ]; then
 			maim -u "$EXECDIR/screenshot/${TITLE}.png"
 		else
 			maim -u "$EXECDIR/screenshot/${TITLE}_orig.png"
-			convert "$EXECDIR/screenshot/${TITLE}_orig.png" -scale "${MAXSCALE}%" "$EXECDIR/screenshot/${TITLE}.png"
+			convert "$EXECDIR/screenshot/${TITLE}_orig.png" -scale "${SCALE}%" "$EXECDIR/screenshot/${TITLE}.png"
 			rm "$EXECDIR/screenshot/${TITLE}_orig.png"
 		fi
 	fi
@@ -109,15 +118,17 @@ AddScreenshotToDoc "Window-Creation-Positionement" "Initial" ""
 
 # "Windows manipulations" "Windows creation"
 focusdesktop 1
-$TERMINAL -e sh -c "ncmpcpp;read" &
-TakeScreenshot "Launch ncmpcpp terminal" "$TERMINAL -e sh -c ncmpcpp"
+#$TERMINAL -e sh -c "tpal art pacman && tpal art spaceinvaders && tpal art yinyang && tpal minimat && tpal brightness && tpal rainbow ; read" &
+ExecuteCMD "urxvt" "tpal art pacman && tpal art spaceinvaders && tpal art yinyang && tpal minimat && tpal brightness && tpal rainbow ; read" &
+TakeScreenshot "Launch termpalette" "$TERMINAL -e sh -c tpal art pacman"
 AddScreenshotToDoc "Window-Creation-Positionement" "Window creation(Launch ncmpcpp)" "$TERMINAL -e sh -c ncmpcpp"
 
 bspc node -p north
 TakeScreenshot "North Window preselection" ""
 AddScreenshotToDoc "Window-Creation-Positionement" "North Window preselection" "bspc node -p north"
 
-$TERMINAL -e sh -c "neofetch --ascii_distro manjaro;read" &
+#$TERMINAL -e sh -c "neofetch --ascii_distro manjaro;read" &
+ExecuteCMD "urxvt" "neofetch --ascii_distro manjaro;read" &
 TakeScreenshot "Launch neofetch" "$TERMINAL -e sh -c neofetch"
 AddScreenshotToDoc "Window-Creation-Positionement" "Launch neofetch" "$TERMINAL -e sh -c neofetch --ascii_distro manjaro"
 
@@ -125,7 +136,8 @@ bspc node -p east
 TakeScreenshot "east Window preselection" "bspc node -p east"
 AddScreenshotToDoc "Window-Creation-Positionement" "east presel" "bspc node -p east"
 
-$TERMINAL -e sh -c "tty-clock -cs" &
+#$TERMINAL -e sh -c "tty-clock -cs" &
+ExecuteCMD "urxvt" "tty-clock -cs" &
 TakeScreenshot "Launch tty-clock" ""
 AddScreenshotToDoc "Window-Creation-Positionement" "Launch tty-clock" "$TERMINAL -e sh -c tty-clock"
 AddScreenshotToDoc "Window-Mouvement-Resize" "Initial" ""
