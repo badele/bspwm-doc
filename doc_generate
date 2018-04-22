@@ -143,9 +143,9 @@ AddScreenshotToDoc "Window-Creation-Positionement" "Launch tty-clock" "$TERMINAL
 AddScreenshotToDoc "Window-Mouvement-Resize" "Initial" ""
 
 for i in 1 2 3; do
-	bspwm_resize.sh north 50
+	resize_win north 50
 	TakeScreenshot "Resize step #$i" ""
-	AddScreenshotToDoc "Window-Mouvement-Resize" "Resize step #$i" "bspwm_resize.sh north 50"
+	AddScreenshotToDoc "Window-Mouvement-Resize" "Resize step #$i" "resize_win north 50"
 done
 AddScreenshotToDoc "Window-Node #3" "Initial" ""
 
